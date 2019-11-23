@@ -1,0 +1,16 @@
+{
+  "name": "key-value-service",
+  "version": "1.0.0",
+  "description": "RESTful API with Node.js, Express and PostgreSQL for key:value service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "sa100 (sergio.rudenko@gmail.com)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^7.14.0"
+  }
+}
