@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon start.js",
-    "test": "jest --testTimeout=10000"
+    "test": "cross-env POSTGRES_DB_BASE=kv_app_test jest --testTimeout=10000"
   },
   "keywords": [],
   "author": "sa100 (sergio.rudenko@gmail.com)",
   "license": "MIT",
   "dependencies": {
+    "cross-env": "^6.0.3",
     "express": "^4.17.1",
     "nodemon": "^2.0.1",
     "pg": "^7.14.0"

@@ -1,5 +1,5 @@
-const request = require('supertest')
-const app = require('../app')
+const request = require('supertest');
+const app = require('../app');
 
 
 describe('Testing GET endpoints', () => {
@@ -14,7 +14,7 @@ describe('Testing GET endpoints', () => {
             expect(response.statusCode).toBe(200);
         }
     );
-})
+});
 
 describe('Testing GET endpoints', () => {
     test('"/kv" should response 200',
@@ -29,7 +29,7 @@ describe('Testing GET endpoints', () => {
             expect(response.statusCode).toBe(200);
         }
     );
-})
+});
 
 describe('Testing GET endpoints', () => {
     test('"/kv/test" should response 200',
@@ -48,7 +48,7 @@ describe('Testing GET endpoints', () => {
             expect(response.statusCode).toBe(200);
         }
     );
-})
+});
 
 describe('Testing CRUD', () => {
     test('POST "/kv/sample/ABCDEF"',
@@ -66,8 +66,8 @@ describe('Testing CRUD', () => {
             expect(response.body.result).toBe('created');
             expect(response.body.ts).toBeDefined();
             expect(response.statusCode).toEqual(201);
-        })
-})
+        });
+});
 
 describe('Testing CRUD', () => {
     test('POST "/kv/sample/ABCDEF", already exists', async () => {
@@ -84,8 +84,8 @@ describe('Testing CRUD', () => {
         expect(response.body.result).toBe('error');
         expect(response.body.detail).toBeDefined();
         expect(response.statusCode).toEqual(409);
-    })
-})
+    });
+});
 
 describe('Testing CRUD', () => {
     test('POST "/kv/sample/111111", empty value', async () => {
@@ -97,8 +97,8 @@ describe('Testing CRUD', () => {
         expect(response.body.result).toBe('error');
         expect(response.body.detail).toBeDefined();
         expect(response.statusCode).toEqual(409);
-    })
-})
+    });
+});
 
 describe('Testing CRUD', () => {
     test('GET "/kv/sample/ABCDEF"', async () => {
@@ -108,8 +108,8 @@ describe('Testing CRUD', () => {
         //{"name":"mock name","description":"mock description"}
         expect(response.body).toBeDefined();
         expect(response.statusCode).toBe(200);
-    })
-})
+    });
+});
 
 describe('Testing CRUD', () => {
     test('GET "/kv/sample/111111", does not exists', async () => {
@@ -120,8 +120,8 @@ describe('Testing CRUD', () => {
         expect(response.body.result).toBe('error');
         expect(response.body.detail).toBeDefined();
         expect(response.statusCode).toBe(404);
-    })
-})
+    });
+});
 
 describe('Testing CRUD', () => {
     test('PUT "/kv/sample/ABCDEF"', async () => {
@@ -138,8 +138,8 @@ describe('Testing CRUD', () => {
         expect(response.body.result).toBe('updated');
         expect(response.body.ts).toBeDefined();
         expect(response.statusCode).toBe(200);
-    })
-})
+    });
+});
 
 describe('Testing CRUD', () => {
     test('PUT "/kv/sample/111111", does not exists', async () => {
@@ -156,8 +156,8 @@ describe('Testing CRUD', () => {
         expect(response.body.result).toBe('error');
         expect(response.body.detail).toBeDefined();
         expect(response.statusCode).toBe(404);
-    })
-})
+    });
+});
 
 describe('Testing CRUD', () => {
     test('DELETE "/kv/sample/ABCDEF"', async () => {
@@ -167,8 +167,8 @@ describe('Testing CRUD', () => {
         //{"result":"deleted"}
         expect(response.body.result).toBe('deleted');
         expect(response.statusCode).toBe(200);
-    })
-})
+    });
+});
 
 describe('Testing CRUD', () => {
     test('DELETE "/kv/sample/ABCDEF", does not exists', async () => {
@@ -179,7 +179,7 @@ describe('Testing CRUD', () => {
         expect(response.body.result).toBe('error');
         expect(response.body.detail).toBeDefined();
         expect(response.statusCode).toBe(404);
-    })
-})
+    });
+});
 
 //test.todo('other CRUD testing');
