@@ -4,6 +4,7 @@
   "description": "RESTful API with Node.js, Express and PostgreSQL for key:value service",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
