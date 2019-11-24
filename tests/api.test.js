@@ -2,54 +2,6 @@ const request = require('supertest');
 const app = require('../app');
 
 
-describe('Testing GET endpoints', () => {
-    test('"/" should response 200',
-        async () => {
-            const response = await request(app)
-                .get('/');
-
-            //{"info":"Node.js, Express, and Postgres API","version":"1"}
-            expect(response.body.version).toBeDefined();
-            expect(response.body.info).toBeDefined();
-            expect(response.statusCode).toBe(200);
-        }
-    );
-});
-
-describe('Testing GET endpoints', () => {
-    test('"/kv" should response 200',
-        async () => {
-            const response = await request(app)
-                .get('/kv');
-
-            //[{"store":"test","count":"2"}]
-            expect(response.body.length).toBe(1);
-            expect(response.body[0].store).toBe('test');
-            expect(parseInt(response.body[0].count)).toBe(2);
-            expect(response.statusCode).toBe(200);
-        }
-    );
-});
-
-describe('Testing GET endpoints', () => {
-    test('"/kv/test" should response 200',
-        async () => {
-            const response = await request(app)
-                .get('/kv/test');
-
-            //[{"key":"123","created_ts":"...","updated_ts":"..."},{"key":"456","created_ts":"...","updated_ts":"..."}]
-            expect(response.body.length).toBe(2);
-            expect(response.body[0].key).toBe('123');
-            expect(response.body[0].created_ts).toBeDefined();
-            expect(response.body[0].updated_ts).toBeDefined();
-            expect(response.body[1].key).toBe('456');
-            expect(response.body[1].created_ts).toBeDefined();
-            expect(response.body[1].updated_ts).toBeDefined();
-            expect(response.statusCode).toBe(200);
-        }
-    );
-});
-
 describe('Testing CRUD', () => {
     test('POST "/kv/sample/ABCDEF"',
         async () => {
@@ -182,4 +134,52 @@ describe('Testing CRUD', () => {
     });
 });
 
-//test.todo('other CRUD testing');
+describe('Testing GET endpoints', () => {
+    test('"/" should response 200',
+        async () => {
+            const response = await request(app)
+                .get('/');
+
+            //{"info":"Node.js, Express, and Postgres API","version":"1"}
+            expect(response.body.version).toBeDefined();
+            expect(response.body.info).toBeDefined();
+            expect(response.statusCode).toBe(200);
+        }
+    );
+});
+
+describe('Testing GET endpoints', () => {
+    test('"/kv" should response 200',
+        async () => {
+            const response = await request(app)
+                .get('/kv');
+
+            //[{"store":"test","count":"2"}]
+            expect(response.body.length).toBe(1);
+            expect(response.body[0].store).toBe('test');
+            expect(parseInt(response.body[0].count)).toBe(2);
+            expect(response.statusCode).toBe(200);
+        }
+    );
+});
+
+describe('Testing GET endpoints', () => {
+    test('"/kv/test" should response 200',
+        async () => {
+            const response = await request(app)
+                .get('/kv/test');
+
+            //[{"key":"123","created_ts":"...","updated_ts":"..."},{"key":"456","created_ts":"...","updated_ts":"..."}]
+            expect(response.body.length).toBe(2);
+            expect(response.body[0].key).toBe('123');
+            expect(response.body[0].created_ts).toBeDefined();
+            expect(response.body[0].updated_ts).toBeDefined();
+            expect(response.body[1].key).toBe('456');
+            expect(response.body[1].created_ts).toBeDefined();
+            expect(response.body[1].updated_ts).toBeDefined();
+            expect(response.statusCode).toBe(200);
+        }
+    );
+});
+
+//test.todo('other testing');
