@@ -1,7 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const port = 3000
 
 const db = require('./queries')
 db.prepare()
@@ -13,8 +12,10 @@ app.use(
   })
 )
 
+// sa100@sa100-1215P:~$ curl localhost:3000/; echo
+// {"info":"Node.js, Express, and Postgres API"}
 app.get('/', (request, response) => {
-  response.json({ info: 'Node.js, Express, and Postgres API' })
+  response.json({ info: 'Node.js, Express, and Postgres API', version: '1' })
 })
 
 /* STAT */
@@ -27,6 +28,6 @@ app.get('/kv/:store/:key', db.getRecord)
 app.put('/kv/:store/:key', db.updateRecord)
 app.delete('/kv/:store/:key', db.deleteRecord)
 
-app.listen(port, () => {
-  console.log(`App running on port ${port}.`)
-})
+// separate app and server for jest testing
+module.exports = app
+

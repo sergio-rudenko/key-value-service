@@ -16,14 +16,15 @@ const prepare = () => {
 			created_ts TIMESTAMP,			\
 			updated_ts TIMESTAMP,			\
 		PRIMARY KEY(store, key))', (error, results) => {
-			if (error) {
-				throw error
-			}
-			// console.log(results);
+		if (error) {
+			throw error
 		}
+		// console.log(results);
+	}
 	)
 }
 
+//app.get('/kv', db.getCount)
 const getCount = (request, response) => {
 	pool.query(
 		'SELECT store, COUNT(store) FROM data GROUP BY store ORDER BY store ASC',
@@ -36,6 +37,7 @@ const getCount = (request, response) => {
 	)
 }
 
+//app.get('/kv/:store', db.getKeys)
 const getKeys = (request, response) => {
 	const store = request.params.store
 	pool.query(
@@ -59,8 +61,11 @@ const getRecord = (request, response) => {
 				throw error
 			}
 			if (results.rowCount == 0) {
-				response.status(409).send(`Record '${store}/${key}' not found!`)
-				return console.log(`Record '${store}/${key}' not found!`)
+				response
+					.status(404)
+					.json({ result: 'error', detail: 'not found' })
+
+				return
 			}
 			response.status(200).send(results.rows[0].value)
 		}
@@ -77,10 +82,15 @@ const createRecord = (request, response) => {
      	 VALUES ($1, $2, $3, to_timestamp($4), to_timestamp($5))', [store, key, value, ts, ts],
 		(error, results) => {
 			if (error) {
-				response.status(409).send(error.detail)
-				return console.log(`Creating '${store}/${key}' failed!`)
+				response
+					.status(409)
+					.json({ result: 'error', detail: error.detail })
+
+				return //console.log(`Creating '${store}/${key}' failed, '${error.detail}'`)
 			}
-			response.status(201).send(`Created '${store}/${key}', TS:${ts}`)
+			response
+				.status(201)
+				.json({ result: 'created', ts: ts })
 		}
 	)
 }
@@ -98,10 +108,15 @@ const updateRecord = (request, response) => {
 				throw error
 			}
 			if (results.rowCount == 0) {
-				response.status(409).send(`Record '${store}/${key}' not found!`)
-				return console.log(`Record '${store}/${key}' not found!`)
+				response
+					.status(404)
+					.json({ result: 'error', detail: 'not found' })
+
+				return
 			}
-			response.status(200).send(`Updated '${store}/${key}', TS:${ts}`)
+			response
+				.status(200)
+				.json({ result: 'updated', ts: ts })
 		}
 	)
 }
@@ -116,10 +131,15 @@ const deleteRecord = (request, response) => {
 				throw error
 			}
 			if (results.rowCount == 0) {
-				response.status(409).send(`Record '${store}/${key}' not found!`)
-				return console.log(`Record '${store}/${key}' not found!`)
+				response
+					.status(404)
+					.json({ result: 'error', detail: 'not found' })
+
+				return;
 			}
-			response.status(200).send(`Deleted`)
+			response
+			.status(200)
+			.json({ result: 'deleted' })
 		}
 	)
 }
